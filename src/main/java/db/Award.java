@@ -8,7 +8,7 @@ public class Award {
 
     public Award(String awardName, int awardYear, String awardCategory, Movie awardedMovie) {
         this.awardName = awardName;
-        if(awardYear >= 1900 && awardYear <= 2022) {
+        if (awardYear >= 1900 && awardYear <= 2022) {
             this.awardYear = awardYear;
         } else throw new IllegalArgumentException("Year must be between 1900 and 2022");
         this.awardCategory = awardCategory;
@@ -17,7 +17,7 @@ public class Award {
 
     public Award(String awardName, int awardYear, String awardCategory) {
         this.awardName = awardName;
-        if(awardYear >= 1900 && awardYear <= 2022) {
+        if (awardYear >= 1900 && awardYear <= 2022) {
             this.awardYear = awardYear;
         } else throw new IllegalArgumentException("Year must be between 1900 and 2022");
         this.awardCategory = awardCategory;
@@ -44,7 +44,7 @@ public class Award {
     }
 
     public void setAwardYear(int awardYear) {
-        if(awardYear >= 1900 && awardYear <= 2022) {
+        if (awardYear >= 1900 && awardYear <= 2022) {
             this.awardYear = awardYear;
         } else throw new IllegalArgumentException("Year must be between 1900 and 2022");
     }

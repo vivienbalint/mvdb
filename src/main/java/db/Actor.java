@@ -7,10 +7,17 @@ public class Actor {
     String firstName;
     String lastName;
     Date dateOfBirth;
-    boolean sex;
+    int sex;
 
-    public Actor(int actor_id, String firstName, String lastName, Date dateOfBirth, boolean sex) {
+    public Actor(int actor_id, String firstName, String lastName, Date dateOfBirth, int sex) {
         this.actor_id = actor_id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.dateOfBirth = dateOfBirth;
+        this.sex = sex;
+    }
+
+    public Actor(String firstName, String lastName, Date dateOfBirth, int sex) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.dateOfBirth = dateOfBirth;
@@ -33,7 +40,7 @@ public class Actor {
         return dateOfBirth;
     }
 
-    public boolean isSex() {
+    public int getSex() {
         return sex;
     }
 
@@ -49,7 +56,7 @@ public class Actor {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public void setSex(boolean sex) {
+    public void setSex(int sex) {
         this.sex = sex;
     }
 }

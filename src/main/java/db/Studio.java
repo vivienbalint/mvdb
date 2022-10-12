@@ -10,7 +10,7 @@ public class Studio {
         this.studio_id = studio_id;
         this.studio_name = studio_name;
         this.headquarter = headquarter;
-        if(year >= 1900 && year <= 2022) {
+        if (year >= 1900 && year <= 2022) {
             this.year = year;
         } else throw new IllegalArgumentException("Year must be between 1900 and 2022");
     }
@@ -18,7 +18,7 @@ public class Studio {
     public Studio(String studio_name, String headquarter, int year) {
         this.studio_name = studio_name;
         this.headquarter = headquarter;
-        if(year >= 1900 && year <= 2022) {
+        if (year >= 1900 && year <= 2022) {
             this.year = year;
         } else throw new IllegalArgumentException("Year must be between 1900 and 2022");
     }
@@ -48,7 +48,7 @@ public class Studio {
     }
 
     public void setYear(int year) {
-        if(year >= 1900 && year <= 2022) {
+        if (year >= 1900 && year <= 2022) {
             this.year = year;
         } else throw new IllegalArgumentException("Year must be between 1900 and 2022");
     }

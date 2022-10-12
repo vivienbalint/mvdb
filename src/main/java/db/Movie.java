@@ -14,10 +14,10 @@ public class Movie {
     public Movie(int movie_id, String title, int year, int length, Director director, List<Studio> madeBy, List<Actor> stars) {
         this.movie_id = movie_id;
         this.title = title;
-        if(year >= 1900 && year <= 2025) {
+        if (year >= 1900 && year <= 2025) {
             this.year = year;
         } else throw new IllegalArgumentException("Year must be between 1900 and 2025");
-        if(length >= 5 && length <= 600) {
+        if (length >= 5 && length <= 600) {
             this.length = length;
         } else throw new IllegalArgumentException("Length must be between 5 and 600 minutes");
         this.director = director;
@@ -58,13 +58,13 @@ public class Movie {
     }
 
     public void setYear(int year) {
-        if(year >= 1900 && year <= 2025) {
+        if (year >= 1900 && year <= 2025) {
             this.year = year;
         } else throw new IllegalArgumentException("Year must be between 1900 and 2025");
     }
 
     public void setLength(int length) {
-        if(length >= 5 && length <= 600) {
+        if (length >= 5 && length <= 600) {
             this.length = length;
         } else throw new IllegalArgumentException("Length must be between 5 and 600 minutes");
 

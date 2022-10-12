@@ -50,9 +50,9 @@ public class StudioController {
 
     public void handleSubmitBtn() {
         Alert error = new Alert(Alert.AlertType.ERROR);
-        if(studioName.getText() != null && !studioName.getText().isEmpty() && studioHq.getText() != null && !studioHq.getText().isEmpty() && studioYear != null && !studioYear.getText().isEmpty()) {
-            if(studioName.getText().length() <= 100 && studioHq.getText().length() <= 45) {
-                if(studioYear.getText().matches("^\\d{4}$")) {
+        if (studioName.getText() != null && !studioName.getText().isEmpty() && studioHq.getText() != null && !studioHq.getText().isEmpty() && studioYear != null && !studioYear.getText().isEmpty()) {
+            if (studioName.getText().length() <= 100 && studioHq.getText().length() <= 45) {
+                if (studioYear.getText().matches("^\\d{4}$")) {
                     int year = Integer.parseInt(studioYear.getText());
                     if (year > 1900 && year <= 2022) {
                         String name = studioName.getText();
@@ -87,7 +87,7 @@ public class StudioController {
         Alert error = new Alert(Alert.AlertType.ERROR);
         Studio selectedItem = studioTable.getSelectionModel().getSelectedItem();
 
-        if(selectedItem != null) {
+        if (selectedItem != null) {
             Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
             confirm.setHeaderText("Biztos törlöd a kiválasztott rekordot?");
             confirm.setContentText("Studió név: " + selectedItem.getStudio_name() + "\nSzékhely: " + selectedItem.getHeadquarter() + "\nAlapítási év: " + selectedItem.getYear());
@@ -96,7 +96,7 @@ public class StudioController {
             confirm.getButtonTypes().setAll(noButton, yesButton);
 
             Optional<ButtonType> result = confirm.showAndWait();
-            if(result.get() == yesButton) {
+            if (result.get() == yesButton) {
                 dao.deleteStudio(selectedItem);
                 studioTable.getItems().remove(selectedItem);
             }

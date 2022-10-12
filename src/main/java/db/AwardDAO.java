@@ -10,16 +10,16 @@ import java.util.Map;
 public class AwardDAO {
 
     public void insertAward(Award award) {
-        String query = "INSERT INTO dij(nev, ev, kategoria, film_id_dij) VALUES ('" + award.getAwardName() + "', '" + award.getAwardYear() + "', '" + award.getAwardCategory() + "', '" + award.getAwardedMovie().getMovie_id() +"')";
+        String query = "INSERT INTO dij(nev, ev, kategoria, film_id_dij) VALUES ('" + award.getAwardName() + "', '" + award.getAwardYear() + "', '" + award.getAwardCategory() + "', '" + award.getAwardedMovie().getMovie_id() + "')";
         DbDAO.executeUpdate(query);
     }
 
-    public ObservableList<Award> listAwards(){
+    public ObservableList<Award> listAwards() {
         MovieDAO dao = new MovieDAO();
         String query = "SELECT * FROM dij";
         ObservableList<Award> result = FXCollections.observableArrayList();
         List<Map<String, Object>> data = DbDAO.executeQuery(query);
-        if(data != null) {
+        if (data != null) {
             for (Map<String, Object> row : data) {
                 java.sql.Date date = java.sql.Date.valueOf(row.get("ev").toString());
                 LocalDate localDate = date.toLocalDate();
@@ -32,12 +32,12 @@ public class AwardDAO {
     }
 
     public void deleteAward(Award award) {
-        String query = "DELETE FROM dij WHERE nev= '"+ award.getAwardName() + "' AND ev= '" + award.getAwardYear() + "' AND kategoria= '" + award.getAwardCategory() + "'";
+        String query = "DELETE FROM dij WHERE nev= '" + award.getAwardName() + "' AND ev= '" + award.getAwardYear() + "' AND kategoria= '" + award.getAwardCategory() + "'";
         DbDAO.executeUpdate(query);
     }
 
     public void updateAward(Award award) {
-        String query = "UPDATE dij SET nev='" + award.getAwardName() + "', ev='" + award.getAwardYear() + "', kategoria='" + award.getAwardCategory() +"', film_id_dij= '" + award.getAwardedMovie().getMovie_id() + "' WHERE nev= '"+ award.getAwardName() + "' AND ev= '" + award.getAwardYear() + "' AND kategoria= '" + award.getAwardCategory() + "'";
+        String query = "UPDATE dij SET nev='" + award.getAwardName() + "', ev='" + award.getAwardYear() + "', kategoria='" + award.getAwardCategory() + "', film_id_dij= '" + award.getAwardedMovie().getMovie_id() + "' WHERE nev= '" + award.getAwardName() + "' AND ev= '" + award.getAwardYear() + "' AND kategoria= '" + award.getAwardCategory() + "'";
         DbDAO.executeUpdate(query);
     }
 }

@@ -64,8 +64,7 @@ public class NavController {
         try {
             FXMLLoader loader = new FXMLLoader(url);
             mainBorderPane.setCenter(loader.load());
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

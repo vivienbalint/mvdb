@@ -17,6 +17,10 @@
     -fx-text-fill: "#212121";
 }
 
+.text-field {
+    -fx-background-color: "#fcfcfc";
+}
+
 .table-view {
     -fx-background-color: transparent;
     -fx-font-size: 15px;

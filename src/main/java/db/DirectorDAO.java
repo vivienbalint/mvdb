@@ -9,17 +9,17 @@ import java.util.Map;
 public class DirectorDAO {
 
     public void insertDirector(Director director) {
-        String query = "INSERT INTO rendezo(vezeteknev, keresztnev, nem) VALUES ('" + director.getLastName() + "', '" + director.getFirstName() + "', '" + director.isSex() +"')";
+        String query = "INSERT INTO rendezo(vezeteknev, keresztnev, nem) VALUES ('" + director.getLastName() + "', '" + director.getFirstName() + "', '" + director.isSex() + "')";
         DbDAO.executeUpdate(query);
     }
 
-    public ObservableList<Director> listDirectors(){
+    public ObservableList<Director> listDirectors() {
         String query = "SELECT * FROM rendezo";
 
         ObservableList<Director> result = FXCollections.observableArrayList();
         List<Map<String, Object>> data = DbDAO.executeQuery(query);
 
-        if(data != null) {
+        if (data != null) {
             for (Map<String, Object> row : data) {
                 Director director = new Director(Integer.parseInt(row.get("rendezo_id").toString()), row.get("vezeteknev").toString(), row.get("keresztnev").toString(), Boolean.parseBoolean(row.get("nem").toString()));
                 result.add(director);
@@ -32,7 +32,7 @@ public class DirectorDAO {
         String query = "SELECT * FROM rendezo WHERE rendezo_id=" + director_id;
         List<Map<String, Object>> data = DbDAO.executeQuery(query);
         Director director = null;
-        if(data != null) {
+        if (data != null) {
             for (Map<String, Object> row : data) {
                 director = new Director(Integer.parseInt(row.get("rendezo_id").toString()), row.get("vezeteknev").toString(), row.get("keresztnev").toString(), Boolean.parseBoolean(row.get("nem").toString()));
             }

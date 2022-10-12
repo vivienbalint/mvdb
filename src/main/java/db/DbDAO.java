@@ -37,11 +37,11 @@ public class DbDAO {
             ResultSetMetaData md = rs.getMetaData();
             int cols = md.getColumnCount();
             List<Map<String, Object>> data = new ArrayList<>();
-            while(rs.next()) {
+            while (rs.next()) {
                 Map<String, Object> row = new HashMap<>(cols);
-                for(int i = 1; i <= cols; ++i) {
+                for (int i = 1; i <= cols; ++i) {
                     row.put(md.getColumnName(i), rs.getObject(i));
-            }
+                }
                 data.add(row);
             }
             rs.close();

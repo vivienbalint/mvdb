@@ -2,6 +2,7 @@ package db;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
@@ -13,22 +14,22 @@ public class StudioDAO {
         DbDAO.executeUpdate(query);
     }
 
-    public ObservableList<Studio> listStudios(){
+    public ObservableList<Studio> listStudios() {
         String query = "SELECT * FROM studio";
 
         ObservableList<Studio> result = FXCollections.observableArrayList();
         List<Map<String, Object>> data = DbDAO.executeQuery(query);
 
-            if(data != null) {
-                for (Map<String, Object> row : data) {
-                    java.sql.Date date = java.sql.Date.valueOf(row.get("alapitasi_ev").toString());
-                    LocalDate localDate = date.toLocalDate();
-                    int year = localDate.getYear();
-                    Studio studio = new Studio( Integer.parseInt(row.get("studio_id").toString()), row.get("studio_nev").toString(), row.get("szekhely").toString(), year);
-                    result.add(studio);
-                }
-                return result;
-            } else return null;
+        if (data != null) {
+            for (Map<String, Object> row : data) {
+                java.sql.Date date = java.sql.Date.valueOf(row.get("alapitasi_ev").toString());
+                LocalDate localDate = date.toLocalDate();
+                int year = localDate.getYear();
+                Studio studio = new Studio(Integer.parseInt(row.get("studio_id").toString()), row.get("studio_nev").toString(), row.get("szekhely").toString(), year);
+                result.add(studio);
+            }
+            return result;
+        } else return null;
     }
 
     public void deleteStudio(Studio studio) {
@@ -37,7 +38,7 @@ public class StudioDAO {
     }
 
     public void updateStudio(Studio studio) {
-        String query = "UPDATE studio SET studio_nev='" + studio.getStudio_name() + "', szekhely='" + studio.getHeadquarter() + "', alapitasi_ev='" + studio.getYear() +"' WHERE studio_id=" + studio.getStudio_id();
+        String query = "UPDATE studio SET studio_nev='" + studio.getStudio_name() + "', szekhely='" + studio.getHeadquarter() + "', alapitasi_ev='" + studio.getYear() + "' WHERE studio_id=" + studio.getStudio_id();
         DbDAO.executeUpdate(query);
     }
 }
