@@ -1,20 +1,28 @@
 package db;
 
+import java.util.List;
+
 public class Movie {
     int movie_id;
     String title;
     int year;
-    String headquarter;
-    int director_id;
+    int length;
+    Director director;
+    List<Studio> madeBy;
+    List<Actor> stars;
 
-    public Movie(int movie_id, String title, int year, String headquarter, int director_id) {
+    public Movie(int movie_id, String title, int year, int length, Director director, List<Studio> madeBy, List<Actor> stars) {
         this.movie_id = movie_id;
         this.title = title;
         if(year >= 1900 && year <= 2025) {
             this.year = year;
         } else throw new IllegalArgumentException("Year must be between 1900 and 2025");
-        this.headquarter = headquarter;
-        this.director_id = director_id;
+        if(length >= 5 && length <= 600) {
+            this.length = length;
+        } else throw new IllegalArgumentException("Length must be between 5 and 600 minutes");
+        this.director = director;
+        this.madeBy = madeBy;
+        this.stars = stars;
     }
 
     public int getMovie_id() {
@@ -25,12 +33,28 @@ public class Movie {
         return title;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
     public int getYear() {
         return year;
+    }
+
+    public int getLength() {
+        return length;
+    }
+
+    public Director getDirector() {
+        return director;
+    }
+
+    public List<Studio> getMadeBy() {
+        return madeBy;
+    }
+
+    public List<Actor> getStars() {
+        return stars;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public void setYear(int year) {
@@ -39,19 +63,22 @@ public class Movie {
         } else throw new IllegalArgumentException("Year must be between 1900 and 2025");
     }
 
-    public String getHeadquarter() {
-        return headquarter;
+    public void setLength(int length) {
+        if(length >= 5 && length <= 600) {
+            this.length = length;
+        } else throw new IllegalArgumentException("Length must be between 5 and 600 minutes");
+
     }
 
-    public void setHeadquarter(String headquarter) {
-        this.headquarter = headquarter;
+    public void setDirector(Director director) {
+        this.director = director;
     }
 
-    public int getDirector_id() {
-        return director_id;
+    public void setMadeBy(List<Studio> madeBy) {
+        this.madeBy = madeBy;
     }
 
-    public void setDirector_id(int director_id) {
-        this.director_id = director_id;
+    public void setStars(List<Actor> stars) {
+        this.stars = stars;
     }
 }
