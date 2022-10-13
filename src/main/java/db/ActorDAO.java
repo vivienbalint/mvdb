@@ -3,13 +3,18 @@ package db;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 
 public class ActorDAO {
 
     public void insertActor(Actor actor) {
-        String query = "INSERT INTO szinesz(vezeteknev, keresztnev, szuletesi_ido, nem) VALUES ('" + actor.getLastName() + "', '" + actor.getFirstName() + "', '" + actor.getDateOfBirth() + "', '" + actor.getSex() + "')";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        Date date = java.sql.Date.valueOf(LocalDate.parse(actor.getDateOfBirth(), formatter));
+        String query = "INSERT INTO szinesz(vezeteknev, keresztnev, szuletesi_ido, nem) VALUES ('" + actor.getLastName() + "', '" + actor.getFirstName() + "', '" + date + "', '" + actor.getSex() + "')";
         DbDAO.executeUpdate(query);
     }
 
@@ -21,7 +26,7 @@ public class ActorDAO {
 
         if (data != null) {
             for (Map<String, Object> row : data) {
-                Actor actor = new Actor(Integer.parseInt(row.get("szinesz_id").toString()), row.get("keresztnev").toString(), row.get("vezeteknev").toString(), java.sql.Date.valueOf(row.get("szuletesi_ido").toString()), Integer.parseInt(row.get("nem").toString()));
+                Actor actor = new Actor(Integer.parseInt(row.get("szinesz_id").toString()), row.get("keresztnev").toString(), row.get("vezeteknev").toString(), row.get("szuletesi_ido").toString(), Integer.parseInt(row.get("nem").toString()));
                 result.add(actor);
             }
             return result;
@@ -34,7 +39,9 @@ public class ActorDAO {
     }
 
     public void updateActor(Actor actor) {
-        String query = "UPDATE szinesz SET vezeteknev'" + actor.getLastName() + "', keresztnev='" + actor.getFirstName() + "', szuletesi_ido='" + actor.getDateOfBirth() + "', nem= '" + actor.getSex() + "' WHERE szinesz_id=" + actor.getActor_id();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        Date date = java.sql.Date.valueOf(LocalDate.parse(actor.getDateOfBirth(), formatter));
+        String query = "UPDATE szinesz SET vezeteknev='" + actor.getLastName() + "', keresztnev='" + actor.getFirstName() + "', szuletesi_ido='" + date + "', nem= '" + actor.getSex() + "' WHERE szinesz_id=" + actor.getActor_id();
         DbDAO.executeUpdate(query);
     }
 }

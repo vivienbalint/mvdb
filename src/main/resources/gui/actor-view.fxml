@@ -109,7 +109,7 @@
                 <Insets bottom="15.0" left="30.0"/>
             </padding>
         </Label>
-        <Button mnemonicParsing="false" styleClass="primary-button" text="Törlés" GridPane.columnIndex="1"
+        <Button onAction="#handleDeleteBtn" mnemonicParsing="false" styleClass="primary-button" text="Törlés" GridPane.columnIndex="1"
                 GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
             <GridPane.margin>
                 <Insets left="30.0"/>

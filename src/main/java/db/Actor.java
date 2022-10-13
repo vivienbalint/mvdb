@@ -6,22 +6,27 @@ public class Actor {
     int actor_id;
     String firstName;
     String lastName;
-    Date dateOfBirth;
+    String dateOfBirth;
     int sex;
 
-    public Actor(int actor_id, String firstName, String lastName, Date dateOfBirth, int sex) {
+    public Actor(int actor_id, String firstName, String lastName, String dateOfBirth, int sex) {
         this.actor_id = actor_id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.dateOfBirth = dateOfBirth;
-        this.sex = sex;
+        if (sex == 0 || sex == 1) {
+            this.sex = sex;
+        } else throw new IllegalArgumentException("The value for sex can only be 0 for females and 1 for males");
+
     }
 
-    public Actor(String firstName, String lastName, Date dateOfBirth, int sex) {
+    public Actor(String firstName, String lastName, String dateOfBirth, int sex) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.dateOfBirth = dateOfBirth;
-        this.sex = sex;
+        if (sex == 0 || sex == 1) {
+            this.sex = sex;
+        } else throw new IllegalArgumentException("The value for sex can only be 0 for females and 1 for males");
     }
 
     public int getActor_id() {
@@ -36,7 +41,7 @@ public class Actor {
         return lastName;
     }
 
-    public Date getDateOfBirth() {
+    public String getDateOfBirth() {
         return dateOfBirth;
     }
 
@@ -52,11 +57,13 @@ public class Actor {
         this.lastName = lastName;
     }
 
-    public void setDateOfBirth(Date dateOfBirth) {
+    public void setDateOfBirth(String dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
     public void setSex(int sex) {
-        this.sex = sex;
+        if (sex == 0 || sex == 1) {
+            this.sex = sex;
+        } else throw new IllegalArgumentException("The value for sex can only be 0 for females and 1 for males");
     }
 }

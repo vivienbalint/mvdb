@@ -107,6 +107,7 @@ public class StudioController {
     }
 
     public void updateRecord() {
+        Alert error = new Alert(Alert.AlertType.ERROR);
         nameCol.setCellFactory(TextFieldTableCell.forTableColumn());
         nameCol.setOnEditCommit(
                 e -> {
@@ -125,12 +126,31 @@ public class StudioController {
                 }
         );
 
-        yearCol.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        yearCol.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter(){
+            @Override
+            public Integer fromString(String value) {
+                try {
+                    return super.fromString(value);
+                } catch (IllegalArgumentException er) {
+                    error.setHeaderText("A beírt érték nem megfelelő!");
+                    error.setContentText("Az elfogadott érték csak egy 1901 és 2022 közötti szám lehet.");
+                    error.show();
+                    return null;
+                }
+            }
+        }));
         yearCol.setOnEditCommit(
                 e -> {
                     Studio currentStudio = e.getTableView().getItems().get(e.getTablePosition().getRow());
-                    currentStudio.setYear(e.getNewValue());
-                    dao.updateStudio(currentStudio);
+                    try {
+                        currentStudio.setYear(e.getNewValue());
+                        dao.updateStudio(currentStudio);
+                    } catch (IllegalArgumentException er) {
+                        error.setHeaderText("A beírt érték nem megfelelő!");
+                        error.setContentText("Az elfogadott érték csak egy 1901 és 2022 közötti szám lehet.");
+                        error.show();
+                    }
+
                 }
         );
     }

@@ -46,7 +46,7 @@ public class MovieDAO {
         List<Map<String, Object>> data = DbDAO.executeQuery(query);
         if (data != null) {
             for (Map<String, Object> row : data) {
-                Actor actor = new Actor(Integer.parseInt(row.get("szinesz_id").toString()), row.get("keresztnev").toString(), row.get("vezeteknev").toString(), java.sql.Date.valueOf(row.get("szuletesi_ido").toString()), Integer.parseInt(row.get("nem").toString()));
+                Actor actor = new Actor(Integer.parseInt(row.get("szinesz_id").toString()), row.get("keresztnev").toString(), row.get("vezeteknev").toString(), row.get("szuletesi_ido").toString(), Integer.parseInt(row.get("nem").toString()));
                 actors.add(actor);
             }
             return actors;

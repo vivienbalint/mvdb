@@ -2,12 +2,18 @@ package gui;
 
 import db.Actor;
 import db.ActorDAO;
+import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.util.converter.IntegerStringConverter;
+
 import java.sql.Date;
+import java.time.DateTimeException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 public class ActorController {
@@ -33,15 +39,15 @@ public class ActorController {
         dateCol = new TableColumn<>("Születési idő");
         sexCol = new TableColumn<>("Nem");
 
-        lastNameCol.setCellValueFactory(new PropertyValueFactory<Actor, String>("lastName"));
-        firstNameCol.setCellValueFactory(new PropertyValueFactory<Actor, String>("firstName"));
-        dateCol.setCellValueFactory(new PropertyValueFactory<Actor, String>("dateOfBirth"));
-        sexCol.setCellValueFactory(new PropertyValueFactory<Actor, Integer>("sex"));
+        lastNameCol.setCellValueFactory(new PropertyValueFactory<>("lastName"));
+        firstNameCol.setCellValueFactory(new PropertyValueFactory<>("firstName"));
+        dateCol.setCellValueFactory(new PropertyValueFactory<>("dateOfBirth"));
+        sexCol.setCellValueFactory(new PropertyValueFactory<>("sex"));
 
         addToTable();
 
         actorTable.getColumns().addAll(lastNameCol, firstNameCol, dateCol, sexCol);
-//        updateRecord();
+        updateRecord();
 
     }
 
@@ -55,17 +61,17 @@ public class ActorController {
         Alert error = new Alert(Alert.AlertType.ERROR);
         if (actorLastName.getText() != null && !actorLastName.getText().isEmpty() && actorFirstName.getText() != null && !actorFirstName.getText().isEmpty() && actorDateOfBirth.getValue() != null && !actorSex.getSelectionModel().isEmpty()) {
             if (actorLastName.getText().length() <= 45 && actorFirstName.getText().length() <= 45) {
-                        int sex;
-                        if(actorSex.getValue().equals("férfi")) {
-                            sex = 1;
-                        } else sex = 0;
-                        Actor actor = new Actor(actorFirstName.getText(), actorLastName.getText(), Date.valueOf(actorDateOfBirth.getValue()), sex);
-                        dao.insertActor(actor);
-                        actorLastName.setText("");
-                        actorFirstName.setText("");
-                        actorDateOfBirth.getEditor().clear();
-                        actorSex.valueProperty().set(null);
-                        addToTable();
+                int sex;
+                if (actorSex.getValue().equals("férfi")) {
+                    sex = 1;
+                } else sex = 0;
+                Actor actor = new Actor(actorFirstName.getText(), actorLastName.getText(), String.valueOf(actorDateOfBirth.getValue()), sex);
+                dao.insertActor(actor);
+                actorLastName.setText("");
+                actorFirstName.setText("");
+                actorDateOfBirth.getEditor().clear();
+                actorSex.valueProperty().set(null);
+                addToTable();
 
             } else {
                 error.setContentText("A vezetéknév és a keresztnév maximum 45 karakteres lehet!");
@@ -102,6 +108,7 @@ public class ActorController {
     }
 
     public void updateRecord() {
+        Alert error = new Alert(Alert.AlertType.ERROR);
         lastNameCol.setCellFactory(TextFieldTableCell.forTableColumn());
         lastNameCol.setOnEditCommit(
                 e -> {
@@ -120,13 +127,58 @@ public class ActorController {
                 }
         );
 
-        //TODO: format String and convert to Date
 
         dateCol.setCellFactory(TextFieldTableCell.forTableColumn());
         dateCol.setOnEditCommit(
                 e -> {
                     Actor currentActor = e.getTableView().getItems().get(e.getTablePosition().getRow());
+                    if (isDate(e.getNewValue())) {
+                        currentActor.setDateOfBirth(e.getNewValue());
+                        dao.updateActor(currentActor);
+                    } else {
+                        error.setHeaderText("A beírt dátum formátuma nem megfelelő!");
+                        error.setContentText("Az elfogadott formátum:\nyyyy-MM-dd");
+                        error.show();
+                    }
                 }
         );
+
+        sexCol.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter() {
+            @Override
+            public Integer fromString(String value) {
+                try {
+                    return super.fromString(value);
+                } catch (IllegalArgumentException e) {
+                    error.setHeaderText("A beírt érték nem megfelelő!");
+                    error.setContentText("Az elfogadott értékek 0 (ha a nem nő), 1 (ha a nem férfi)");
+                    error.show();
+                    return null;
+                }
+            }
+        }));
+        sexCol.setOnEditCommit(
+                e -> {
+                    Actor currentActor = e.getTableView().getItems().get(e.getTablePosition().getRow());
+                    try {
+                        currentActor.setSex(e.getNewValue());
+                        dao.updateActor(currentActor);
+
+                    } catch (IllegalArgumentException er) {
+                        error.setHeaderText("A beírt érték nem megfelelő!");
+                        error.setContentText("Az elfogadott értékek 0 (ha a nem nő), 1 (ha a nem férfi)");
+                        error.show();
+                    }
+                }
+        );
+    }
+
+    private boolean isDate(String input) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        try {
+            LocalDate date = LocalDate.parse(input, formatter);
+            return true;
+        } catch (DateTimeException er) {
+            return false;
+        }
     }
 }
