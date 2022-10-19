@@ -9,7 +9,7 @@ import java.util.Map;
 public class DirectorDAO {
 
     public void insertDirector(Director director) {
-        String query = "INSERT INTO rendezo(vezeteknev, keresztnev, nem) VALUES ('" + director.getLastName() + "', '" + director.getFirstName() + "', '" + director.isSex() + "')";
+        String query = "INSERT INTO rendezo(vezeteknev, keresztnev, nem) VALUES ('" + director.getLastName() + "', '" + director.getFirstName() + "', '" + director.getSex() + "')";
         DbDAO.executeUpdate(query);
     }
 
@@ -21,7 +21,7 @@ public class DirectorDAO {
 
         if (data != null) {
             for (Map<String, Object> row : data) {
-                Director director = new Director(Integer.parseInt(row.get("rendezo_id").toString()), row.get("vezeteknev").toString(), row.get("keresztnev").toString(), Boolean.parseBoolean(row.get("nem").toString()));
+                Director director = new Director(Integer.parseInt(row.get("rendezo_id").toString()), row.get("vezeteknev").toString(), row.get("keresztnev").toString(), Integer.parseInt(row.get("nem").toString()));
                 result.add(director);
             }
             return result;
@@ -34,7 +34,7 @@ public class DirectorDAO {
         Director director = null;
         if (data != null) {
             for (Map<String, Object> row : data) {
-                director = new Director(Integer.parseInt(row.get("rendezo_id").toString()), row.get("vezeteknev").toString(), row.get("keresztnev").toString(), Boolean.parseBoolean(row.get("nem").toString()));
+                director = new Director(Integer.parseInt(row.get("rendezo_id").toString()), row.get("vezeteknev").toString(), row.get("keresztnev").toString(), Integer.parseInt(row.get("nem").toString()));
             }
             return director;
         } else return null;
@@ -46,7 +46,7 @@ public class DirectorDAO {
     }
 
     public void updateDirector(Director director) {
-        String query = "UPDATE rendezo SET vezeteknev='" + director.getLastName() + "', keresztnev='" + director.getFirstName() + "', nem= '" + director.isSex() + "' WHERE rendezo_id=" + director.getDirector_id();
+        String query = "UPDATE rendezo SET vezeteknev='" + director.getLastName() + "', keresztnev='" + director.getFirstName() + "', nem= '" + director.getSex() + "' WHERE rendezo_id=" + director.getDirector_id();
         DbDAO.executeUpdate(query);
     }
 }

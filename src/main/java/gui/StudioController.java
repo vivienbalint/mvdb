@@ -54,7 +54,7 @@ public class StudioController {
             if (studioName.getText().length() <= 100 && studioHq.getText().length() <= 45) {
                 if (studioYear.getText().matches("^\\d{4}$")) {
                     int year = Integer.parseInt(studioYear.getText());
-                    if (year > 1900 && year <= 2022) {
+                    if (year > 1901 && year <= 2022) {
                         String name = studioName.getText();
                         String hq = studioHq.getText();
                         Studio studio = new Studio(name, hq, year);

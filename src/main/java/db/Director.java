@@ -1,17 +1,26 @@
 package db;
 
 public class Director {
-
     int director_id;
     String lastName;
     String firstName;
-    boolean sex;
+    int sex;
 
-    public Director(int director_id, String lastName, String firstName, boolean sex) {
+    public Director(int director_id, String lastName, String firstName, int sex) {
         this.director_id = director_id;
         this.lastName = lastName;
         this.firstName = firstName;
-        this.sex = sex;
+        if (sex == 0 || sex == 1) {
+            this.sex = sex;
+        } else throw new IllegalArgumentException("The value for sex can only be 0 for females and 1 for males");
+    }
+
+    public Director(String lastName, String firstName, int sex) {
+        this.lastName = lastName;
+        this.firstName = firstName;
+        if (sex == 0 || sex == 1) {
+            this.sex = sex;
+        } else throw new IllegalArgumentException("The value for sex can only be 0 for females and 1 for males");
     }
 
     public int getDirector_id() {
@@ -26,7 +35,7 @@ public class Director {
         return firstName;
     }
 
-    public boolean isSex() {
+    public int getSex() {
         return sex;
     }
 
@@ -38,7 +47,14 @@ public class Director {
         this.firstName = firstName;
     }
 
-    public void setSex(boolean sex) {
-        this.sex = sex;
+    public void setSex(int sex) {
+        if (sex == 0 || sex == 1) {
+            this.sex = sex;
+        } else throw new IllegalArgumentException("The value for sex can only be 0 for females and 1 for males");
+    }
+
+    @Override
+    public String toString() {
+        return firstName + " " + lastName;
     }
 }

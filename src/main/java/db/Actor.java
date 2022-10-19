@@ -1,7 +1,5 @@
 package db;
 
-import java.sql.Date;
-
 public class Actor {
     int actor_id;
     String firstName;
@@ -65,5 +63,10 @@ public class Actor {
         if (sex == 0 || sex == 1) {
             this.sex = sex;
         } else throw new IllegalArgumentException("The value for sex can only be 0 for females and 1 for males");
+    }
+
+    @Override
+    public String toString() {
+        return firstName + " " + lastName;
     }
 }

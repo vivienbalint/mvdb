@@ -18,6 +18,15 @@ public class ActorDAO {
         DbDAO.executeUpdate(query);
     }
 
+    public Actor getActorById(int id) {
+        String query = "SELECT * FROM szinesz WHERE szinesz_id=" + id;
+        List<Map<String, Object>> data = DbDAO.executeQuery(query);
+        if (data != null) {
+            Map<String, Object> actorById = data.get(0);
+            return new Actor(Integer.parseInt(actorById.get("szinesz_id").toString()), actorById.get("keresztnev").toString(), actorById.get("vezeteknev").toString(), actorById.get("szuletesi_ido").toString(), Integer.parseInt(actorById.get("nem").toString()));
+        } else return null;
+    }
+
     public ObservableList<Actor> listActors() {
         String query = "SELECT * FROM szinesz";
 

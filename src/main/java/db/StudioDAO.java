@@ -14,6 +14,18 @@ public class StudioDAO {
         DbDAO.executeUpdate(query);
     }
 
+    public Studio getStudioById(int id) {
+        String query = "SELECT * FROM studio WHERE studio_id=" + id;
+        List<Map<String, Object>> data = DbDAO.executeQuery(query);
+        if (data != null) {
+            Map<String, Object> studioById = data.get(0);
+            java.sql.Date date = java.sql.Date.valueOf(studioById.get("alapitasi_ev").toString());
+            LocalDate localDate = date.toLocalDate();
+            int year = localDate.getYear();
+            return new Studio(Integer.parseInt(studioById.get("studio_id").toString()), studioById.get("studio_nev").toString(), studioById.get("szekhely").toString(), year);
+        } else return null;
+    }
+
     public ObservableList<Studio> listStudios() {
         String query = "SELECT * FROM studio";
 
