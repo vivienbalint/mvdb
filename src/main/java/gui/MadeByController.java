@@ -31,12 +31,12 @@ public class MadeByController {
 
     private void addToTable(TableView<MadeBy> table) {
         ObservableList<MadeBy> list = dao.listMadeBy();
-
         table.setItems(list);
     }
 
     public void handleMadeBySubmit(TableView<MadeBy> table, ListView<Studio> selected, Movie movie) {
         ObservableList<Studio> studios = selected.getItems();
+
         for (Studio studio : studios) {
             MadeBy madeBy = new MadeBy(studio, movie);
             dao.insertMadeBy(madeBy);

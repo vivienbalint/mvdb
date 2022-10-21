@@ -18,10 +18,6 @@ public class MadeBy {
         return movie;
     }
 
-    public void setStudio(Studio studio) {
-        this.studio = studio;
-    }
-
     public void setMovie(Movie movie) {
         this.movie = movie;
     }

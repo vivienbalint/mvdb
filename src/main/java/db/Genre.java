@@ -17,10 +17,6 @@ public class Genre {
         return movie;
     }
 
-    public void setGenreName(String genreName) {
-        this.genreName = genreName;
-    }
-
     public void setMovie(Movie movie) {
         this.movie = movie;
     }

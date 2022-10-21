@@ -30,20 +30,23 @@ public class MovieController {
 
     MadeByController madeByController = new MadeByController();
     StarsInController starsInController = new StarsInController();
+    GenreController genreController = new GenreController();
+    EditController editController = new EditController();
     MovieDAO movieDAO = new MovieDAO();
     DirectorDAO directorDAO = new DirectorDAO();
     StudioDAO studioDAO = new StudioDAO();
     ActorDAO actorDAO = new ActorDAO();
 
-
     ListView<Studio> selectedStudios = new ListView<>();
     ListView<Actor> selectedActors = new ListView<>();
-
 
     TableColumn<Movie, String> movieTitle;
     TableColumn<Movie, Integer> movieYear;
     TableColumn<Movie, Integer> movieLength;
     TableColumn<Movie, String> directorName;
+
+    boolean isEdit = false;
+    Movie selectedMovie;
 
     public void initialize() {
 
@@ -69,12 +72,11 @@ public class MovieController {
         starsInMovies.setItems(movieDAO.listMovies());
         starsInController.initTable(starsInTable);
 
-//        updateRecord();
+        genreMovies.setItems(movieDAO.listMovies());
+        genreController.initTable(genreTable);
 
         handleStudioListView();
         handleActorListView();
-
-
     }
 
     public void addToTable() {
@@ -115,45 +117,36 @@ public class MovieController {
     }
 
     public void handleMovieSubmitBtn() {
-        Alert error = new Alert(Alert.AlertType.ERROR);
-        if (title.getText() != null && !title.getText().isEmpty() && year.getText() != null && !length.getText().isEmpty() && length.getText() != null && !length.getText().isEmpty() && !movieDirector.getSelectionModel().isEmpty()) {
-            if (title.getText().length() <= 45) {
-                if (year.getText().matches("^\\d{4}$") && length.getText().matches("^\\d+$")) {
-                    int movieYear = Integer.parseInt(year.getText());
-                    int movieLength = Integer.parseInt(length.getText());
-                    if (movieYear >= 1901 && movieYear <= 2025 && movieLength >= 5 && movieLength <= 600) {
-                        String movieTitle = title.getText();
-                        Movie movie = new Movie(movieTitle, movieYear, movieLength, movieDirector.getValue());
-                        movieDAO.insertMovie(movie);
-                        title.setText("");
-                        year.setText("");
-                        length.setText("");
-                        addToTable();
-                        madeByMovies.setItems(movieDAO.listMovies());
-                        starsInMovies.setItems(movieDAO.listMovies());
-                    } else {
-                        error.setContentText("Az premier éve csak 1901 és 2025 közötti érték lehet, a hossz csak 5 és 600 közötti érték lehet!");
-                        error.show();
-                    }
-                }
+        if (isValid()) {
+            Movie movie = new Movie(title.getText(), Integer.parseInt(year.getText()), Integer.parseInt(length.getText()), movieDirector.getValue());
+            if (!isEdit) {
+                movieDAO.insertMovie(movie);
             } else {
-                error.setContentText("A cím maximum 45 karakteres lehet!");
-                error.show();
+                selectedMovie.setTitle(title.getText());
+                selectedMovie.setYear(Integer.parseInt(year.getText()));
+                selectedMovie.setLength(Integer.parseInt(length.getText()));
+                selectedMovie.setDirector(movieDirector.getValue());
+                isEdit = false;
+                editController.updateMovie(movieDAO, selectedMovie);
             }
-
-        } else {
-            error.setContentText("Nem lehet üres mező!");
-            error.show();
+            title.setText("");
+            year.setText("");
+            length.setText("");
+            addToTable();
+            madeByMovies.setItems(movieDAO.listMovies());
+            starsInMovies.setItems(movieDAO.listMovies());
+            genreMovies.setItems(movieDAO.listMovies());
         }
     }
 
     public void handleMadeBySubmitBtn() {
         Alert error = new Alert(Alert.AlertType.ERROR);
-        if (!madeByMovies.getSelectionModel().isEmpty()) {
+        if (madeByMovies.getSelectionModel().getSelectedItem() != null) {
             madeByController.handleMadeBySubmit(madeByTable, selectedStudios, madeByMovies.getValue());
             madeByMovies.valueProperty().set(null);
         } else {
             error.setContentText("Nincs film kiválasztva!");
+            error.show();
         }
     }
 
@@ -163,12 +156,25 @@ public class MovieController {
             starsInController.handleStarsInSubmit(starsInTable, selectedActors, starsInMovies.getValue());
             starsInMovies.valueProperty().set(null);
         } else {
-            error.setContentText("Nincs film kiválasztva!");
+            error.setContentText("Nincs film kiválasztva");
+            error.show();
         }
     }
 
     public void handleGenreSubmitBtn() {
-
+        Alert error = new Alert(Alert.AlertType.ERROR);
+        if (!genreMovies.getSelectionModel().isEmpty() && genreName.getText() != null && !genreName.getText().isEmpty()) {
+            if (genreName.getText().length() <= 25) {
+                genreController.handleGenreSubmit(genreTable, genreName.getText(), genreMovies.getValue());
+                genreMovies.valueProperty().set(null);
+                genreName.clear();
+            } else {
+                error.setContentText("A műfaj maximum 25 karakter lehet!");
+            }
+        } else {
+            error.setContentText("Nincs film kiválasztva, vagy nincs műfaj megadva!");
+            error.show();
+        }
     }
 
     public void handleDeleteMovieBtn() {
@@ -203,6 +209,44 @@ public class MovieController {
     }
 
     public void handleDeleteGenreBtn() {
+        genreController.handleDeleteGenreBtn(genreTable);
+    }
 
+    public void handleEditMovieBtn() {
+        Alert error = new Alert(Alert.AlertType.ERROR);
+        selectedMovie = movieTable.getSelectionModel().getSelectedItem();
+
+        if (selectedMovie != null) {
+            isEdit = true;
+            editController.setEditMovie(selectedMovie, title, year, length, movieDirector);
+        } else {
+            error.setContentText("Nincs rekord kiválasztva!");
+            error.show();
+        }
+    }
+
+    private boolean isValid() {
+        Alert error = new Alert(Alert.AlertType.ERROR);
+        if (!title.getText().isEmpty() && !year.getText().isEmpty() && !length.getText().isEmpty() && movieDirector.getSelectionModel().getSelectedItem() != null) {
+            if (title.getText().length() <= 45) {
+                if (year.getText().matches("^\\d{4}$") && length.getText().matches("^\\d+$")) {
+                    int movieYear = Integer.parseInt(year.getText());
+                    int movieLength = Integer.parseInt(length.getText());
+                    if (movieYear >= 1901 && movieYear <= 2025 && movieLength >= 5 && movieLength <= 600) {
+                        return true;
+                    } else {
+                        error.setContentText("A premier éve csak 1901 és 2025 közötti érték lehet, a hossz csak 5 és 600 közötti érték lehet!");
+                        error.show();
+                    }
+                }
+            } else {
+                error.setContentText("A cím maximum 45 karakteres lehet!");
+                error.show();
+            }
+        } else {
+            error.setContentText("Nem lehet üres mező!");
+            error.show();
+        }
+        return false;
     }
 }

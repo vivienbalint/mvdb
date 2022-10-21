@@ -13,14 +13,6 @@ public class MovieDAO {
     public void insertMovie(Movie movie) {
         String query = "INSERT INTO film(cim, premier_eve, jatekido, rendezo_id_film) VALUES ('" + movie.getTitle() + "', '" + movie.getYear() + "', '" + movie.getLength() + "', '" + movie.getDirector().getDirector_id() + "')";
         DbDAO.executeUpdate(query);
-//        for (Studio studio : movie.getMadeBy()) {
-//            String query2 = "INSERT INTO gyartotta(studio_id_gyartotta, film_id_gyartotta) VALUES ('" + studio.getStudio_id() + "', '" + movie.getMovie_id() + "')";
-//            DbDAO.executeUpdate(query2);
-//        }
-//        for (Actor actor : movie.getStars()) {
-//            String query3 = "INSERT INTO szerepel(film_id_szerepel, szinesz_id_szerepel) VALUES ('" + movie.getMovie_id() + "', '" + actor.getActor_id() + "')";
-//            DbDAO.executeUpdate(query3);
-//        }
     }
 
     public List<Studio> getStudiosByMovieID(int movie_id) {
@@ -85,26 +77,10 @@ public class MovieDAO {
     public void deleteMovie(Movie movie) {
         String query1 = "DELETE FROM film WHERE film_id=" + movie.getMovie_id();
         DbDAO.executeUpdate(query1);
-//        for (Studio studio : movie.getMadeBy()) {
-//            String query2 = "DELETE FROM gyartotta WHERE film_id_gyartotta=" + movie.getMovie_id();
-//            DbDAO.executeUpdate(query2);
-//        }
-//        for (Actor actor : movie.getStars()) {
-//            String query3 = "DELETE FROM szerepel WHERE film_id_szerepel=" + movie.getMovie_id();
-//            DbDAO.executeUpdate(query3);
-//        }
     }
 
     public void updateMovie(Movie movie) {
-        String query1 = "UPDATE film SET cim='" + movie.getTitle() + "', premier_eve='" + movie.getYear() + "', jatekido='" + movie.getLength() + "', rendezo_id_film='" + movie.getDirector().getDirector_id() + "' WHERE film_id=" + movie.getMovie_id();
-        DbDAO.executeUpdate(query1);
-//        for (Studio studio : movie.getMadeBy()) {
-//            String query2 = "UPDATE gyartotta SET studio_id_gyartotta='" + studio.getStudio_id() + "' WHERE film_id_gyartotta=" + movie.getMovie_id();
-//            DbDAO.executeUpdate(query2);
-//        }
-//        for (Actor actor : movie.getStars()) {
-//            String query3 = "UPDATE szerepel SET szinesz_id_szerepel='" + actor.getActor_id() + "' WHERE film_id_szerepel=" + movie.getMovie_id();
-//            DbDAO.executeUpdate(query3);
-//        }
+        String query = "UPDATE film SET cim='" + movie.getTitle() + "', premier_eve='" + movie.getYear() + "', jatekido='" + movie.getLength() + "', rendezo_id_film='" + movie.getDirector().getDirector_id() + "' WHERE film_id=" + movie.getMovie_id();
+        DbDAO.executeUpdate(query);
     }
 }

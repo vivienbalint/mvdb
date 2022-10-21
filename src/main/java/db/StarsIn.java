@@ -17,10 +17,6 @@ public class StarsIn {
         return movie;
     }
 
-    public void setActor(Actor actor) {
-        this.actor = actor;
-    }
-
     public void setMovie(Movie movie) {
         this.movie = movie;
     }

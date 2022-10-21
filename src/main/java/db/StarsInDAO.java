@@ -33,9 +33,4 @@ public class StarsInDAO {
         String query = "DELETE FROM szerepel WHERE film_id_szerepel='" + starsIn.getMovie().getMovie_id() + "' AND szinesz_id_szerepel=" + starsIn.getActor().getActor_id();
         DbDAO.executeUpdate(query);
     }
-
-    public void updateStarsIn(StarsIn starsIn) {
-        String query = "UPDATE szerepel SET szinesz_id_szerepel='" + starsIn.getActor().getActor_id() + "' WHERE film_id_szerepel='" + starsIn.getMovie().getMovie_id() + "' AND szinesz_id_szerepel=" + starsIn.getActor().getActor_id();
-        DbDAO.executeUpdate(query);
-    }
 }

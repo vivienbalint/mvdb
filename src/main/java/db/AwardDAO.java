@@ -37,7 +37,7 @@ public class AwardDAO {
     }
 
     public void updateAward(Award award) {
-        String query = "UPDATE dij SET nev='" + award.getAwardName() + "', ev='" + award.getAwardYear() + "', kategoria='" + award.getAwardCategory() + "', film_id_dij= '" + award.getAwardedMovie().getMovie_id() + "' WHERE nev= '" + award.getAwardName() + "' AND ev= '" + award.getAwardYear() + "' AND kategoria= '" + award.getAwardCategory() + "'";
+        String query = "UPDATE dij SET film_id_dij= '" + award.getAwardedMovie().getMovie_id() + "' WHERE nev= '" + award.getAwardName() + "' AND ev= '" + award.getAwardYear() + "' AND kategoria= '" + award.getAwardCategory() + "'";
         DbDAO.executeUpdate(query);
     }
 }

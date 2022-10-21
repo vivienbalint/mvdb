@@ -2,6 +2,7 @@ package db;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
 import java.util.List;
 import java.util.Map;
 
@@ -30,11 +31,6 @@ public class MadeByDAO {
 
     public void deleteMadeBy(MadeBy madeBy) {
         String query = "DELETE FROM gyartotta WHERE studio_id_gyartotta='" + madeBy.getStudio().getStudio_id() + "' AND film_id_gyartotta=" + madeBy.getMovie().getMovie_id();
-        DbDAO.executeUpdate(query);
-    }
-
-    public void updateMadeBy(MadeBy madeBy) {
-        String query = "UPDATE gyartotta SET studio_id_gyartotta='" + madeBy.getStudio().getStudio_id() + "' WHERE studio_id_gyartotta='" + madeBy.getStudio().getStudio_id() + "' AND film_id_gyartotta=" + madeBy.getMovie().getMovie_id();
         DbDAO.executeUpdate(query);
     }
 }

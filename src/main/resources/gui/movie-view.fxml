@@ -113,7 +113,7 @@
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                                  <VBox.margin>
-                                    <Insets bottom="10.0" />
+                                    <Insets bottom="10.0" top="10.0" />
                                  </VBox.margin>
                               </ComboBox>
                               <ListView fx:id="studioListView" prefHeight="365.0" prefWidth="291.0" style="-fx-background-color: #fcfcfc; -fx-border-color: #212121;">
@@ -155,7 +155,7 @@
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                                  <VBox.margin>
-                                    <Insets bottom="10.0" />
+                                    <Insets bottom="10.0" top="10.0" />
                                  </VBox.margin>
                               </ComboBox>
                               <ListView fx:id="actorListView" prefHeight="365.0" prefWidth="291.0" style="-fx-background-color: #fcfcfc; -fx-border-color: #212121;">
@@ -197,7 +197,7 @@
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                                  <VBox.margin>
-                                    <Insets bottom="10.0" />
+                                    <Insets bottom="10.0" top="10.0" />
                                  </VBox.margin>
                               </ComboBox>
                                <TextField fx:id="genreName" promptText="műfaj">
@@ -255,7 +255,7 @@
                                         <Cursor fx:constant="HAND" />
                                     </cursor>
                                 </Button>
-                              <Button mnemonicParsing="false" onAction="#handleDeleteMovieBtn" styleClass="primary-button" text="Szerkesztés">
+                              <Button mnemonicParsing="false" onAction="#handleEditMovieBtn" styleClass="primary-button" text="Szerkesztés">
                                  <font>
                                     <Font name="Calibri" size="18.0" />
                                  </font>
@@ -287,17 +287,6 @@
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </Button>
-                              <Button mnemonicParsing="false" onAction="#handleDeleteMovieBtn" styleClass="primary-button" text="Szerkesztés">
-                                 <font>
-                                    <Font name="Calibri" size="18.0" />
-                                 </font>
-                                 <cursor>
-                                    <Cursor fx:constant="HAND" />
-                                 </cursor>
-                                 <HBox.margin>
-                                    <Insets left="10.0" />
-                                 </HBox.margin>
-                              </Button>
                            </children>
                         </HBox>
                      </children>
@@ -318,17 +307,6 @@
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
-                              </Button>
-                              <Button mnemonicParsing="false" onAction="#handleDeleteMovieBtn" styleClass="primary-button" text="Szerkesztés">
-                                 <font>
-                                    <Font name="Calibri" size="18.0" />
-                                 </font>
-                                 <cursor>
-                                    <Cursor fx:constant="HAND" />
-                                 </cursor>
-                                 <HBox.margin>
-                                    <Insets left="10.0" />
-                                 </HBox.margin>
                               </Button>
                            </children>
                         </HBox>

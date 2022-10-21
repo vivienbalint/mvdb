@@ -31,9 +31,4 @@ public class GenreDAO {
         String query = "DELETE FROM mufaj WHERE mufaj= '" + genre.getGenreName() + "' AND film_id_mufaj= '" + genre.getMovie().getMovie_id() + "'";
         DbDAO.executeUpdate(query);
     }
-
-    public void updateGenre(Genre genre) {
-        String query = "UPDATE mufaj SET mufaj='" + genre.getGenreName() + "' WHERE mufaj= '" + genre.getGenreName() + "' AND film_id_mufaj= '" + genre.getMovie().getMovie_id() + "'";
-        DbDAO.executeUpdate(query);
-    }
 }
