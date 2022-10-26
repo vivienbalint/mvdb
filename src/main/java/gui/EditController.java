@@ -5,7 +5,7 @@ import javafx.scene.control.*;
 
 import java.util.Optional;
 
-public class EditController {
+class EditController {
 
     public void setEditMovie(Movie movie, TextField title, TextField year, TextField length, ComboBox<Director> director) {
         title.setText(movie.getTitle());

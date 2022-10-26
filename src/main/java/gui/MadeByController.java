@@ -10,7 +10,7 @@ import javafx.scene.control.*;
 
 import java.util.Optional;
 
-public class MadeByController {
+class MadeByController {
 
     TableColumn<MadeBy, String> madeByTitle;
     TableColumn<MadeBy, String> madeByStudioName;

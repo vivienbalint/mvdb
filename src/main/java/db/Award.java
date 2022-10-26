@@ -1,10 +1,10 @@
 package db;
 
 public class Award {
-    String awardName;
-    int awardYear;
-    String awardCategory;
-    Movie awardedMovie;
+    private final String awardName;
+    private final int awardYear;
+    private final String awardCategory;
+    private Movie awardedMovie;
 
     public Award(String awardName, int awardYear, String awardCategory, Movie awardedMovie) {
         this.awardName = awardName;

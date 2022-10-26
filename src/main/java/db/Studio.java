@@ -1,10 +1,10 @@
 package db;
 
 public class Studio {
-    int studio_id;
-    String studio_name;
-    String headquarter;
-    int year;
+    private int studio_id;
+    private String studio_name;
+    private String headquarter;
+    private int year;
 
     public Studio(int studio_id, String studio_name, String headquarter, int year) {
         this.studio_id = studio_id;

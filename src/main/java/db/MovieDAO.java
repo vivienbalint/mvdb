@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -82,5 +83,45 @@ public class MovieDAO {
     public void updateMovie(Movie movie) {
         String query = "UPDATE film SET cim='" + movie.getTitle() + "', premier_eve='" + movie.getYear() + "', jatekido='" + movie.getLength() + "', rendezo_id_film='" + movie.getDirector().getDirector_id() + "' WHERE film_id=" + movie.getMovie_id();
         DbDAO.executeUpdate(query);
+    }
+
+    public ObservableList<Movie> getNumberOfMoviesByStudio() {
+        String query = "SELECT studio_nev, count(cim) as db FROM film INNER JOIN gyartotta ON film_id = film_id_gyartotta INNER JOIN studio ON studio_id = studio_id_gyartotta GROUP BY studio_nev";
+
+        ObservableList<Movie> result = FXCollections.observableArrayList();
+        List<Map<String, Object>> data = DbDAO.executeQuery(query);
+        if (data != null) {
+            for (Map<String, Object> row : data) {
+                Movie movie = new Movie(row.get("studio_nev").toString(), Integer.parseInt(row.get("db").toString()));
+                result.add(movie);
+            }
+            return result;
+        } else return null;
+    }
+
+    public ObservableList<Movie> getNumberOfFemaleActorsByMovie() {
+        String query = "SELECT cim, count(szinesz_id_szerepel) AS db FROM film INNER JOIN szerepel ON film_id = film_id_szerepel INNER JOIN szinesz ON film_id_szerepel = szinesz_id WHERE szinesz_id_szerepel IN (SELECT szinesz_id FROM szinesz WHERE nem = 0) GROUP BY cim";
+        ObservableList<Movie> result = FXCollections.observableArrayList();
+        List<Map<String, Object>> data = DbDAO.executeQuery(query);
+        if (data != null) {
+            for (Map<String, Object> row : data) {
+                Movie movie = new Movie(row.get("cim").toString(), Integer.parseInt(row.get("db").toString()));
+                result.add(movie);
+            }
+            return result;
+        } else return null;
+    }
+
+    public ObservableList<Movie> getMoviesByActorName(String name) {
+        String query = "SELECT cim, CONCAT(keresztnev, ' ', vezeteknev) AS nev FROM film INNER JOIN szerepel ON film_id = film_id_szerepel INNER JOIN szinesz ON szinesz_id_szerepel = szinesz_id WHERE szinesz_id_szerepel IN (SELECT szinesz_id FROM szinesz WHERE CONCAT(keresztnev, ' ', vezeteknev) LIKE '%" + name + "%')";
+        ObservableList<Movie> result = FXCollections.observableArrayList();
+        List<Map<String, Object>> data = DbDAO.executeQuery(query);
+        if(data != null) {
+            for (Map<String, Object> row : data) {
+                Movie movie = new Movie(row.get("nev").toString(), row.get("cim").toString());
+                result.add(movie);
+            }
+            return result;
+        } else return null;
     }
 }

@@ -1,10 +1,10 @@
 package db;
 
 public class Director {
-    int director_id;
-    String lastName;
-    String firstName;
-    int sex;
+    private int director_id;
+    private String lastName;
+    private String firstName;
+    private int sex;
 
     public Director(int director_id, String lastName, String firstName, int sex) {
         this.director_id = director_id;

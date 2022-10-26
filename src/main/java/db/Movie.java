@@ -1,11 +1,16 @@
 package db;
 
 public class Movie {
-    int movie_id;
-    String title;
-    int year;
-    int length;
-    Director director;
+    private int movie_id;
+    private String title;
+    private int year;
+    private int length;
+    private Director director;
+
+    private String name;
+    private int count;
+    private String actorName;
+
     public Movie(int movie_id, String title, int year, int length, Director director) {
         this.movie_id = movie_id;
         this.title = title;
@@ -16,6 +21,16 @@ public class Movie {
             this.length = length;
         } else throw new IllegalArgumentException("Length must be between 5 and 600 minutes");
         this.director = director;
+    }
+
+    public Movie(String name, int count) {
+        this.name = name;
+        this.count = count;
+    }
+
+    public Movie(String actorName, String name) {
+        this.actorName = actorName;
+        this.name = name;
     }
 
     public Movie(String title, int year, int length, Director director) {
@@ -47,6 +62,18 @@ public class Movie {
 
     public Director getDirector() {
         return director;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public String getActorName() {
+        return actorName;
     }
 
     public void setTitle(String title) {

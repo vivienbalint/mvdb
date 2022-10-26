@@ -46,11 +46,6 @@ public class DbDAO {
             }
             rs.close();
             statement.close();
-//            ResultSet keys = statement.getGeneratedKeys();
-//
-//            while (keys.next()) {
-//                System.out.println("Generated: " + keys.getString(1));
-//            }
             return data;
         } catch (SQLException e) {
             e.printStackTrace();

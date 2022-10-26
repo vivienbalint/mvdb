@@ -1,11 +1,11 @@
 package db;
 
 public class Actor {
-    int actor_id;
-    String firstName;
-    String lastName;
-    String dateOfBirth;
-    int sex;
+    private int actor_id;
+    private String firstName;
+    private String lastName;
+    private String dateOfBirth;
+    private int sex;
 
     public Actor(int actor_id, String firstName, String lastName, String dateOfBirth, int sex) {
         this.actor_id = actor_id;

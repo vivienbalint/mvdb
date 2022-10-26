@@ -7,7 +7,7 @@ import javafx.scene.control.*;
 
 import java.util.Optional;
 
-public class StarsInController {
+class StarsInController {
 
     TableColumn<StarsIn, String> starsInTitle;
     TableColumn<StarsIn, String> actorName;

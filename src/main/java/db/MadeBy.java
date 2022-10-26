@@ -1,14 +1,6 @@
 package db;
 
-public class MadeBy {
-
-    Studio studio;
-    Movie movie;
-
-    public MadeBy(Studio studio, Movie movie) {
-        this.studio = studio;
-        this.movie = movie;
-    }
+public record MadeBy(Studio studio, Movie movie) {
 
     public Studio getStudio() {
         return studio;
@@ -16,9 +8,5 @@ public class MadeBy {
 
     public Movie getMovie() {
         return movie;
-    }
-
-    public void setMovie(Movie movie) {
-        this.movie = movie;
     }
 }

@@ -1,13 +1,6 @@
 package db;
 
-public class Genre {
-    String genreName;
-    Movie movie;
-
-    public Genre(String genreName, Movie movie) {
-        this.genreName = genreName;
-        this.movie = movie;
-    }
+public record Genre(String genreName, Movie movie) {
 
     public String getGenreName() {
         return genreName;
@@ -15,9 +8,5 @@ public class Genre {
 
     public Movie getMovie() {
         return movie;
-    }
-
-    public void setMovie(Movie movie) {
-        this.movie = movie;
     }
 }

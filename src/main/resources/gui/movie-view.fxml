@@ -31,70 +31,103 @@
         <RowConstraints minHeight="10.0" percentHeight="100.0" vgrow="SOMETIMES" />
     </rowConstraints>
     <children>
-        <Label text="Új film felvétele" textAlignment="CENTER" textFill="#fcfcfc" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="1">
-            <font>
-                <Font name="Haettenschweiler" size="24.0" />
-            </font>
-            <padding>
-                <Insets bottom="15.0" />
-            </padding>
-        </Label>
-      <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" GridPane.columnIndex="2" GridPane.rowIndex="2">
+      <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="2">
          <tabs>
             <Tab style="-fx-background-color: #fcfcfc;" text="Filmek">
                <content>
-                  <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                  <AnchorPane>
                      <children>
-                          <VBox AnchorPane.leftAnchor="5.0">
-                              <children>
-                                  <TextField fx:id="title" promptText="cím">
-                                      <padding>
-                                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                      </padding>
-                                      <VBox.margin>
+                        <HBox alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                                <VBox prefHeight="459.0" prefWidth="316.0">
+                                    <children>
+                                        <TextField fx:id="title" promptText="cím">
+                                            <padding>
+                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                            </padding>
+                                            <VBox.margin>
+                                                <Insets bottom="15.0" top="15.0" />
+                                            </VBox.margin>
+                                        </TextField>
+                                        <TextField fx:id="year" promptText="premier éve">
+                                            <padding>
+                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                            </padding>
+                                            <VBox.margin>
+                                                <Insets bottom="15.0" top="15.0" />
+                                            </VBox.margin>
+                                        </TextField>
+                                        <TextField fx:id="length" promptText="játékidő percben">
+                                            <padding>
+                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                            </padding>
+                                            <VBox.margin>
+                                                <Insets bottom="15.0" top="15.0" />
+                                            </VBox.margin>
+                                        </TextField>
+                                    <ComboBox fx:id="movieDirector" promptText="rendező" style="-fx-background-color: #fcfcfc;">
+                                       <padding>
+                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                       </padding>
+                                       <VBox.margin>
                                           <Insets bottom="15.0" top="15.0" />
-                                      </VBox.margin>
-                                  </TextField>
-                                  <TextField fx:id="year" promptText="premier éve">
-                                      <padding>
-                                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                      </padding>
-                                      <VBox.margin>
-                                          <Insets bottom="15.0" top="15.0" />
-                                      </VBox.margin>
-                                  </TextField>
-                                  <TextField fx:id="length" promptText="játékidő percben">
-                                      <padding>
-                                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                      </padding>
-                                      <VBox.margin>
-                                          <Insets bottom="15.0" top="15.0" />
-                                      </VBox.margin>
-                                  </TextField>
-                              <ComboBox fx:id="movieDirector" prefHeight="35.0" prefWidth="298.0" promptText="rendező" style="-fx-background-color: #fcfcfc;">
-                                 <padding>
-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                 </padding>
-                                 <VBox.margin>
-                                    <Insets bottom="15.0" top="15.0" />
-                                 </VBox.margin>
-                                 <cursor>
-                                    <Cursor fx:constant="HAND" />
-                                 </cursor>
-                              </ComboBox>
-                              <Button mnemonicParsing="false" onAction="#handleMovieSubmitBtn" styleClass="primary-button" text="+">
-                                 <font>
-                                    <Font name="Calibri" size="23.0" />
-                                 </font>
-                                 <padding>
-                                    <Insets bottom="5.0" left="22.0" right="22.0" top="5.0" />
-                                 </padding>
-                                 <cursor>
-                                    <Cursor fx:constant="HAND" />
-                                 </cursor>
-                              </Button>
-                              </children>
-                          </VBox>
+                                       </VBox.margin>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                    </ComboBox>
+                                    <Button mnemonicParsing="false" onAction="#handleMovieSubmitBtn" styleClass="primary-button" text="+">
+                                       <font>
+                                          <Font name="Calibri" size="23.0" />
+                                       </font>
+                                       <padding>
+                                          <Insets bottom="5.0" left="22.0" right="22.0" top="5.0" />
+                                       </padding>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                    </Button>
+                                    </children>
+                                 <HBox.margin>
+                                    <Insets left="5.0" />
+                                 </HBox.margin>
+                                </VBox>
+                              <VBox>
+                                 <children>
+                                    <TableView fx:id="movieTable" editable="true" prefWidth="500.0" />
+                                    <HBox prefWidth="200.0">
+                                       <children>
+                                            <Button mnemonicParsing="false" onAction="#handleDeleteMovieBtn" styleClass="primary-button" text="Törlés">
+                                                <font>
+                                                    <Font name="Calibri" size="18.0" />
+                                                </font>
+                                                <cursor>
+                                                    <Cursor fx:constant="HAND" />
+                                                </cursor>
+                                             <HBox.margin>
+                                                <Insets top="10.0" />
+                                             </HBox.margin>
+                                            </Button>
+                                          <Button mnemonicParsing="false" onAction="#handleEditMovieBtn" styleClass="primary-button" text="Szerkesztés">
+                                             <font>
+                                                <Font name="Calibri" size="18.0" />
+                                             </font>
+                                             <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                             </cursor>
+                                             <HBox.margin>
+                                                <Insets left="10.0" top="10.0" />
+                                             </HBox.margin>
+                                          </Button>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets left="10.0" />
+                                 </HBox.margin>
+                              </VBox>
+                           </children>
+                        </HBox>
                      </children>
                   </AnchorPane>
                </content>
@@ -103,40 +136,74 @@
                <content>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0">
                      <children>
-                        <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="5.0">
+                        <HBox>
                            <children>
-                              <ComboBox fx:id="madeByMovies" prefHeight="35.0" prefWidth="298.0" promptText="film" style="-fx-background-color: #fcfcfc;">
-                                 <padding>
-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                 </padding>
-                                 <cursor>
-                                    <Cursor fx:constant="HAND" />
-                                 </cursor>
-                                 <VBox.margin>
-                                    <Insets bottom="10.0" top="10.0" />
-                                 </VBox.margin>
-                              </ComboBox>
-                              <ListView fx:id="studioListView" prefHeight="365.0" prefWidth="291.0" style="-fx-background-color: #fcfcfc; -fx-border-color: #212121;">
-                                 <cursor>
-                                    <Cursor fx:constant="HAND" />
-                                 </cursor>
-                              </ListView>
-                                  <Button fx:id="madeBySubmitBtn" mnemonicParsing="false" onAction="#handleMadeBySubmitBtn" styleClass="primary-button" text="+">
-                                      <font>
-                                          <Font name="Calibri" size="23.0" />
-                                      </font>
-                                      <padding>
-                                          <Insets bottom="5.0" left="22.0" right="22.0" top="5.0" />
-                                      </padding>
-                                      <cursor>
+                              <VBox alignment="CENTER_LEFT">
+                                 <children>
+                                    <ComboBox fx:id="madeByMovies" prefHeight="35.0" prefWidth="298.0" promptText="film" style="-fx-background-color: #fcfcfc;">
+                                       <padding>
+                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                       </padding>
+                                       <cursor>
                                           <Cursor fx:constant="HAND" />
-                                      </cursor>
-                                 <VBox.margin>
-                                    <Insets top="5.0" />
-                                 </VBox.margin>
-                                  </Button>
+                                       </cursor>
+                                       <VBox.margin>
+                                          <Insets bottom="10.0" top="10.0" />
+                                       </VBox.margin>
+                                    </ComboBox>
+                                    <ListView fx:id="studioListView" prefHeight="341.0" prefWidth="298.0" style="-fx-background-color: #fcfcfc; -fx-border-color: #212121;">
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                    </ListView>
+                                        <Button fx:id="madeBySubmitBtn" mnemonicParsing="false" onAction="#handleMadeBySubmitBtn" styleClass="primary-button" text="+">
+                                            <font>
+                                                <Font name="Calibri" size="23.0" />
+                                            </font>
+                                            <padding>
+                                                <Insets bottom="5.0" left="22.0" right="22.0" top="5.0" />
+                                            </padding>
+                                            <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                            </cursor>
+                                       <VBox.margin>
+                                          <Insets top="10.0" />
+                                       </VBox.margin>
+                                        </Button>
+                                 </children>
+                                 <padding>
+                                    <Insets left="5.0" />
+                                 </padding>
+                              </VBox>
+                              <VBox>
+                                 <children>
+                                    <TableView fx:id="madeByTable" editable="true" prefWidth="500.0">
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin>
+                                    </TableView>
+                                    <HBox>
+                                       <children>
+                                          <Button mnemonicParsing="false" onAction="#handleDeleteStudioBtn" styleClass="primary-button" text="Törlés">
+                                             <font>
+                                                <Font name="Calibri" size="18.0" />
+                                             </font>
+                                             <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                             </cursor>
+                                             <HBox.margin>
+                                                <Insets top="10.0" />
+                                             </HBox.margin>
+                                          </Button>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets left="10.0" />
+                                 </HBox.margin>
+                              </VBox>
                            </children>
-                        </VBox>
+                        </HBox>
                      </children>
                   </AnchorPane>
                </content>
@@ -145,40 +212,70 @@
                <content>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0">
                      <children>
-                        <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="5.0">
+                        <HBox>
                            <children>
-                              <ComboBox fx:id="starsInMovies" prefHeight="35.0" prefWidth="298.0" promptText="film" style="-fx-background-color: #fcfcfc;">
-                                 <padding>
-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                 </padding>
-                                 <cursor>
-                                    <Cursor fx:constant="HAND" />
-                                 </cursor>
-                                 <VBox.margin>
-                                    <Insets bottom="10.0" top="10.0" />
-                                 </VBox.margin>
-                              </ComboBox>
-                              <ListView fx:id="actorListView" prefHeight="365.0" prefWidth="291.0" style="-fx-background-color: #fcfcfc; -fx-border-color: #212121;">
-                                 <cursor>
-                                    <Cursor fx:constant="HAND" />
-                                 </cursor>
-                              </ListView>
-                              <Button mnemonicParsing="false" onAction="#handleStarsInSubmitBtn" styleClass="primary-button" text="+">
-                                 <font>
-                                    <Font name="Calibri" size="23.0" />
-                                 </font>
-                                 <padding>
-                                    <Insets bottom="5.0" left="22.0" right="22.0" top="5.0" />
-                                 </padding>
-                                 <cursor>
-                                    <Cursor fx:constant="HAND" />
-                                 </cursor>
-                                 <VBox.margin>
-                                    <Insets top="5.0" />
-                                 </VBox.margin>
-                              </Button>
+                              <VBox>
+                                 <children>
+                                    <ComboBox fx:id="starsInMovies" prefHeight="35.0" prefWidth="298.0" promptText="film" style="-fx-background-color: #fcfcfc;">
+                                       <padding>
+                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                       </padding>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                       <VBox.margin>
+                                          <Insets bottom="10.0" top="10.0" />
+                                       </VBox.margin>
+                                    </ComboBox>
+                                    <ListView fx:id="actorListView" prefHeight="342.0" prefWidth="298.0" style="-fx-background-color: #fcfcfc; -fx-border-color: #212121;">
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                    </ListView>
+                                    <Button mnemonicParsing="false" onAction="#handleStarsInSubmitBtn" styleClass="primary-button" text="+">
+                                       <font>
+                                          <Font name="Calibri" size="23.0" />
+                                       </font>
+                                       <padding>
+                                          <Insets bottom="5.0" left="22.0" right="22.0" top="5.0" />
+                                       </padding>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                       <VBox.margin>
+                                          <Insets top="10.0" />
+                                       </VBox.margin>
+                                    </Button>
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets left="5.0" />
+                                 </HBox.margin>
+                              </VBox>
+                              <VBox>
+                                 <children>
+                                    <TableView fx:id="starsInTable" editable="true" prefWidth="500.0" />
+                                    <HBox prefWidth="500.0">
+                                       <children>
+                                          <Button mnemonicParsing="false" onAction="#handleDeleteActorBtn" styleClass="primary-button" text="Törlés">
+                                             <font>
+                                                <Font name="Calibri" size="18.0" />
+                                             </font>
+                                             <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                             </cursor>
+                                             <HBox.margin>
+                                                <Insets top="10.0" />
+                                             </HBox.margin>
+                                          </Button>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets left="10.0" />
+                                 </HBox.margin>
+                              </VBox>
                            </children>
-                        </VBox>
+                        </HBox>
                      </children>
                   </AnchorPane>
                </content>
@@ -187,154 +284,93 @@
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="0.0" prefWidth="0.0">
                      <children>
-                        <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="5.0">
+                        <HBox>
                            <children>
-                              <ComboBox fx:id="genreMovies" prefHeight="35.0" prefWidth="298.0" promptText="film" style="-fx-background-color: #fcfcfc;">
-                                 <padding>
-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                 </padding>
-                                 <cursor>
-                                    <Cursor fx:constant="HAND" />
-                                 </cursor>
-                                 <VBox.margin>
-                                    <Insets bottom="10.0" top="10.0" />
-                                 </VBox.margin>
-                              </ComboBox>
-                               <TextField fx:id="genreName" promptText="műfaj">
-                                   <padding>
-                                       <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                   </padding>
-                                   <VBox.margin>
-                                       <Insets bottom="15.0" top="15.0" />
-                                   </VBox.margin>
-                               </TextField>
-                              <Button mnemonicParsing="false" onAction="#handleGenreSubmitBtn" styleClass="primary-button" text="+">
-                                 <font>
-                                    <Font name="Calibri" size="23.0" />
-                                 </font>
-                                 <padding>
-                                    <Insets bottom="5.0" left="22.0" right="22.0" top="5.0" />
-                                 </padding>
-                                 <cursor>
-                                    <Cursor fx:constant="HAND" />
-                                 </cursor>
-                                 <VBox.margin>
-                                    <Insets top="5.0" />
-                                 </VBox.margin>
-                              </Button>
+                              <VBox>
+                                 <children>
+                                    <ComboBox fx:id="genreMovies" prefHeight="35.0" prefWidth="298.0" promptText="film" style="-fx-background-color: #fcfcfc;">
+                                       <padding>
+                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                       </padding>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                       <VBox.margin>
+                                          <Insets bottom="10.0" top="10.0" />
+                                       </VBox.margin>
+                                    </ComboBox>
+                                     <TextField fx:id="genreName" promptText="műfaj">
+                                         <padding>
+                                             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                         </padding>
+                                         <VBox.margin>
+                                             <Insets bottom="15.0" top="15.0" />
+                                         </VBox.margin>
+                                     </TextField>
+                                    <Button mnemonicParsing="false" onAction="#handleGenreSubmitBtn" styleClass="primary-button" text="+">
+                                       <font>
+                                          <Font name="Calibri" size="23.0" />
+                                       </font>
+                                       <padding>
+                                          <Insets bottom="5.0" left="22.0" right="22.0" top="5.0" />
+                                       </padding>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                       <VBox.margin>
+                                          <Insets top="5.0" />
+                                       </VBox.margin>
+                                    </Button>
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets left="5.0" />
+                                 </HBox.margin>
+                              </VBox>
+                              <VBox>
+                                 <children>
+                                    <TableView fx:id="genreTable" editable="true" prefWidth="500.0" />
+                                    <Button mnemonicParsing="false" onAction="#handleDeleteGenreBtn" styleClass="primary-button" text="Törlés">
+                                       <font>
+                                          <Font name="Calibri" size="18.0" />
+                                       </font>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                       <VBox.margin>
+                                          <Insets top="10.0" />
+                                       </VBox.margin>
+                                    </Button>
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets left="10.0" />
+                                 </HBox.margin>
+                              </VBox>
                            </children>
-                        </VBox>
+                        </HBox>
                      </children>
                   </AnchorPane>
               </content>
             </Tab>
          </tabs>
       </TabPane>
+        <Label text="Új film felvétele" textAlignment="CENTER" textFill="#fcfcfc" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="1">
+            <font>
+                <Font name="Haettenschweiler" size="24.0" />
+            </font>
+            <padding>
+                <Insets bottom="15.0" left="5.0" />
+            </padding>
+         <GridPane.margin>
+            <Insets left="5.0" />
+         </GridPane.margin>
+        </Label>
         <Label text="Filmek" textFill="#fcfcfc" GridPane.columnIndex="3" GridPane.rowIndex="1">
             <font>
                 <Font name="Haettenschweiler" size="24.0" />
             </font>
             <padding>
-                <Insets bottom="15.0" left="30.0" />
+                <Insets bottom="15.0" left="15.0" />
             </padding>
         </Label>
-      <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" GridPane.columnIndex="3" GridPane.rowIndex="2">
-        <tabs>
-          <Tab style="-fx-background-color: #fcfcfc;" text="Filmek">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <children>
-                        <TableView fx:id="movieTable" editable="true" prefHeight="418.0" prefWidth="502.0" />
-                        <HBox prefWidth="200.0" AnchorPane.bottomAnchor="2.0">
-                           <children>
-                                <Button mnemonicParsing="false" onAction="#handleDeleteMovieBtn" styleClass="primary-button" text="Törlés">
-                                    <font>
-                                        <Font name="Calibri" size="18.0" />
-                                    </font>
-                                    <cursor>
-                                        <Cursor fx:constant="HAND" />
-                                    </cursor>
-                                </Button>
-                              <Button mnemonicParsing="false" onAction="#handleEditMovieBtn" styleClass="primary-button" text="Szerkesztés">
-                                 <font>
-                                    <Font name="Calibri" size="18.0" />
-                                 </font>
-                                 <cursor>
-                                    <Cursor fx:constant="HAND" />
-                                 </cursor>
-                                 <HBox.margin>
-                                    <Insets left="10.0" />
-                                 </HBox.margin>
-                              </Button>
-                           </children>
-                        </HBox>
-                     </children>
-                  </AnchorPane>
-            </content>
-          </Tab>
-          <Tab style="-fx-background-color: #fcfcfc;" text="Studiók">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <children>
-                        <TableView fx:id="madeByTable" editable="true" prefHeight="418.0" prefWidth="502.0" />
-                        <HBox prefWidth="200.0" AnchorPane.bottomAnchor="2.0">
-                           <children>
-                              <Button mnemonicParsing="false" onAction="#handleDeleteStudioBtn" styleClass="primary-button" text="Törlés">
-                                 <font>
-                                    <Font name="Calibri" size="18.0" />
-                                 </font>
-                                 <cursor>
-                                    <Cursor fx:constant="HAND" />
-                                 </cursor>
-                              </Button>
-                           </children>
-                        </HBox>
-                     </children>
-                  </AnchorPane>
-            </content>
-          </Tab>
-            <Tab style="-fx-background-color: #fcfcfc;" text="Színészek">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <children>
-                        <TableView fx:id="starsInTable" editable="true" prefHeight="418.0" prefWidth="502.0" />
-                        <HBox layoutX="10.0" layoutY="10.0" prefWidth="200.0" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="0.0">
-                           <children>
-                              <Button mnemonicParsing="false" onAction="#handleDeleteActorBtn" styleClass="primary-button" text="Törlés">
-                                 <font>
-                                    <Font name="Calibri" size="18.0" />
-                                 </font>
-                                 <cursor>
-                                    <Cursor fx:constant="HAND" />
-                                 </cursor>
-                              </Button>
-                           </children>
-                        </HBox>
-                     </children>
-                  </AnchorPane>
-              </content>
-            </Tab>
-            <Tab style="-fx-background-color: #fcfcfc;" text="Műfajok">
-               <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <children>
-                        <TableView fx:id="genreTable" editable="true" prefHeight="418.0" prefWidth="502.0" />
-                        <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#handleDeleteGenreBtn" styleClass="primary-button" text="Törlés" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="0.0">
-                           <font>
-                              <Font name="Calibri" size="18.0" />
-                           </font>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </Button>
-                     </children>
-                  </AnchorPane>
-               </content>
-            </Tab>
-        </tabs>
-         <GridPane.margin>
-            <Insets left="30.0" />
-         </GridPane.margin>
-      </TabPane>
     </children>
 </GridPane>

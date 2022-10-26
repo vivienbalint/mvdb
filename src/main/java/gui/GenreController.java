@@ -7,7 +7,7 @@ import javafx.scene.control.*;
 
 import java.util.Optional;
 
-public class GenreController {
+class GenreController {
     TableColumn<Genre, String> movieTitle;
     TableColumn<Genre, String> genreName;
 
